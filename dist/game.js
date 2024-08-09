@@ -50,11 +50,16 @@ function ironClick()
 
 function buyIronMiner()
 {
-    if (iron >= IRON_WORKER_PRICE )
+    const number_workers_tobuy = document.getElementById('number_workers_tobuy').value;
+    console.log(number_workers_tobuy);
+    price_to_pay = (IRON_WORKER_PRICE*parseInt(number_workers_tobuy));
+    console.log(price_to_pay);
+    if (iron >= price_to_pay )
     {
-        iron = iron - IRON_WORKER_PRICE;
-        iron_workers = iron_workers + 1;
+        iron = iron - price_to_pay;
+        iron_workers = iron_workers + parseInt(number_workers_tobuy);
         updateMetals();
+        updateWorkers();
     }
     else
     {
@@ -64,8 +69,14 @@ function buyIronMiner()
 
 function updateMetals()
 {
-    const demoId = document.getElementById('iron_counter');
-    demoId.textContent = iron;
+    const iron_counter = document.getElementById('iron_counter');
+    iron_counter.textContent = iron;
+}
+
+function updateWorkers()
+{
+    const iron_worker_counter = document.getElementById('iron_worker_counter');
+    iron_worker_counter.textContent = iron_workers;
 }
 
 // For testing purposes, we'll just increment
