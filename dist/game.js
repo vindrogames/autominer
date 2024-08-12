@@ -4,8 +4,8 @@ const SULFUR_PRICE = 100;
 const DRILL_PRICE = 1000;
 const SILVER_MINE_STEPS = 10;
 
-var iron = 10000000;
-var silver = 1000;
+var iron = 0;
+var silver = 0;
 var gold = 0;
 
 var iron_workers = 0;
@@ -172,30 +172,11 @@ function mineSilverWorker()
     }
 }
 
-// For testing purposes, we'll just increment
-// this and send it out to the console.
-var justSomeNumber = 0;
-
-// Define the work to be done
-var doWork = function() {
+function mineIronWorker()
+{
     iron = iron + iron_workers;
-    mineSilverWorker();
-    updateMetals();
-    updateProductionOutput();
-};
+}
 
-// Define what to do if something goes wrong
-var doError = function() {
-    console.warn('The drift exceeded the interval.');
-};
-
-// (The third argument is optional)
-var ticker = new AdjustingInterval(doWork, 1000, doError);
-
-ticker.start();
-window.onload = function() {
-    updateLabels();
-};
 
 
 function updateLabels()
@@ -219,3 +200,30 @@ function updateProductionOutput()
     const silver_prod_label = document.getElementById('silver_prod_label');
     silver_prod_label.innerHTML  = 'Production: '+ silver_prod_real +' Silver/sec';
 }
+
+// For testing purposes, we'll just increment
+// this and send it out to the console.
+var justSomeNumber = 0;
+
+// Define the work to be done
+var doWork = function() {
+    mineIronWorker();
+    mineSilverWorker();
+    updateMetals();
+    updateProductionOutput();
+};
+
+// Define what to do if something goes wrong
+var doError = function() {
+    console.warn('The drift exceeded the interval.');
+};
+
+// (The third argument is optional)
+var ticker = new AdjustingInterval(doWork, 1000, doError);
+
+ticker.start();
+window.onload = function() {
+    updateLabels();
+};
+
+
