@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Auto Miner</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">    
     <script src="game.js"></script>
 </head>
@@ -15,7 +15,7 @@
         Auto Miner - Idle Game
       </h1>      
       <p class="subtitle">
-        My first website with <strong>Bulma</strong>!
+        Automate the mining, and reach the maximum  <strong>Silver</strong>!
       </p>
     </div>
   </section>  
@@ -24,16 +24,56 @@
       <div class="fixed-grid has-4-cols">
         <div class="grid">
           <div class="cell"></div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="ironClick()">Mine 1 Iron</button></div>
-          <div id="iron_counter" class="cell has-text-white">0 iron</div>
-          <div class="cell"></div>
+          <div class="cell"><button class="button is-grey is-fullwidth" onclick="ironClick()">Click to Mine 1 Iron</button></div>
+          <div id="iron_counter" class="cell has-text-white">0 <figure class="image is-32x32"><img src="img/beam.png"></figure></div>
+          <div id="iron_prod_label" class="cell has-text-white">Production: 0 Iron/sec</div>
           <div class="cell">
             <div class="control">
               <input id="number_workers_tobuy" class="input" type="number" value="1" />
             </div>
           </div>
           <div class="cell"><button class="button is-grey is-fullwidth" onclick="buyIronMiner()">Buy Iron Miner</button></div>
-          <div id="iron_worker_counter" class="cell has-text-white">0 workers</div>          
+          <div id="iron_worker_counter" class="cell has-text-white">0 workers</div>  
+          <div id="iron_worker_label" class="cell has-text-white">1 Iron miner costs 10 Iron</div>        
+        </div>        
+      </div>           
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="container"> 
+      <div class="fixed-grid has-6-cols">
+        <div class="grid">
+          <div class="cell"><div class="control">
+            <input id="number_tobuy_sulfur" class="input" type="number" value="1" />
+          </div></div>
+          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buySulfur()">Buy Sulfur</button></div>
+          <div id="sulfur_counter" class="cell has-text-white">0 sulfur</div>
+          <div class="cell is-row-span-2"><button class="button is-grey is-fullwidth is-large" onclick="silverClick()">Click 10 times to Mine 1 Silver</button><div>1 Silver needs 10 Sulfur and 1 Drill</div></div>
+          <div id="silver_counter" class="cell has-text-white">0 <figure class="image is-32x32"><img src="img/jewelry.png"></figure></div>
+          <div  id="silver_prod_label" class="cell has-text-white">Production: 0 Silver/sec</div>
+          
+          <div class="cell">
+            <div class="control">
+              <input id="number_tobuy_drill" class="input" type="number" value="1" />
+            </div>
+          </div>
+          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buyDrill()">Buy Drill</button></div>
+          <div id="drill_counter" class="cell has-text-white">0 drill</div>
+          <div class="cell">cell 3</div>
+          <div class="cell">cell 2</div> 
+          <div class="cell">cell 4</div>
+          <div class="cell">cell 5</div>
+          <div class="cell"><div class="control">
+            <input id="number_silver_workers_tobuy" class="input" type="number" value="1" />
+          </div></div>
+          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buySilverMiner()">Buy Silver Miner</button></div>
+          <div id="silver_worker_counter" class="cell has-text-white">0 workers</div>
+          <div class="cell">cell 9</div>     
+          <div class="cell">cell 10</div>
+          <div class="cell">cell 11</div>
+          <div class="cell">cell 12</div> 
+          <div id="silver_worker_label" class="cell has-text-white">1 Silver miner costs 10 Silver</div>
         </div>        
       </div>           
     </div>
