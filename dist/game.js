@@ -93,7 +93,7 @@ function silverClick()
             silver_pick_steps = 0;
             setTimeout(() => {
                 document.getElementById('silver-progress').value = 0;
-            }, 420);
+            }, 210);
         }
     }
     updateMetals();
@@ -148,9 +148,9 @@ function updateMetals()
 function updateWorkers()
 {
     const iron_worker_counter = document.getElementById('iron_worker_counter');
-    iron_worker_counter.textContent = iron_workers;
+    iron_worker_counter.textContent = 'Iron miners: ' + iron_workers;
     const silver_worker_counter = document.getElementById('silver_worker_counter');
-    silver_worker_counter.textContent = silver_workers;
+    silver_worker_counter.textContent = 'Silver miners: ' + silver_workers;
 }
 
 function buySulfur()
