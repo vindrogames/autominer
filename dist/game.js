@@ -155,22 +155,9 @@ function updateMetals()
 function updateWorkers()
 {
     const iron_worker_counter = document.getElementById('iron_worker_counter');
-    if (iron_workers == 1)
-    {
-        iron_worker_counter.textContent = iron_workers + 'iron miner';
-    } else
-    {
-        iron_worker_counter.textContent = iron_workers + 'iron miners';
-    }
+    iron_worker_counter.textContent = 'Iron miners: ' + iron_workers;
     const silver_worker_counter = document.getElementById('silver_worker_counter');
-    if (silver_workers == 1)
-    {
-        silver_worker_counter.textContent = silver_workers + 'silver miner'; 
-    } 
-    else
-    {
-        silver_worker_counter.textContent = silver_workers + 'silver miners';
-    }
+    silver_worker_counter.textContent = 'Silver miners: ' + silver_workers; 
 }
 
 function buySulfur()
