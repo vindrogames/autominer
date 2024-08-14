@@ -4,12 +4,54 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Auto Miner</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">    
-    <script src="game.js"></script>
-</head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="icon" type="image/x-icon" href="img/jewelry.png">
+    <style>
+
+      /* .cell button.iron, .cell .control input.iron {
+        width: 100%;
+      }
+
+      @media(max-width: 768px) {
+        .cell button.iron {
+          width: auto;
+        }
+
+        .cell .control input.iron {
+          width: 142px;
+        }
+      } */
+
+      section#resource-display {
+        position: absolute;
+        left: calc(50vw - 101.5px);
+      }
+      section#resource-display.fixed {
+        position: fixed;
+        top: 7px;
+      }
+
+      #resource-display {
+        background-color: lightgray;
+        border: 1px solid black;
+      }
+
+      @media(max-width: 450px) {
+        .grid {
+          display: block;
+        }
+
+        input {
+          margin-bottom: 7px;
+          width: 50% !important;
+        }
+      }
+    </style>
   </head>
+
   <body>
-  <section class="section">
+    
+  <header id="game-intro" class="section p-3">
     <div class="container">
       <h1 class="title">
         Auto Miner - Idle Game
@@ -18,66 +60,107 @@
         Automate the mining, and reach the maximum  <strong>Silver</strong>!
       </p>
     </div>
-  </section>  
-  <div class="block">
-    <div class="container"> 
-      <div class="fixed-grid has-4-cols">
-        <div class="grid">
-          <div class="cell"></div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="ironClick()">Click to Mine 1 Iron</button></div>
-          <div id="iron_counter" class="cell has-text-white">0 <figure class="image is-32x32"><img src="img/beam.png"></figure></div>
-          <div id="iron_prod_label" class="cell has-text-white">Production: 0 Iron/sec</div>
-          <div class="cell">
-            <div class="control">
-              <input id="number_workers_tobuy" class="input" type="number" value="1" />
-            </div>
-          </div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buyIronMiner()">Buy Iron Miner</button></div>
-          <div id="iron_worker_counter" class="cell has-text-white">0 workers</div>  
-          <div id="iron_worker_label" class="cell has-text-white">1 Iron miner costs 10 Iron</div>        
-        </div>        
-      </div>           
-    </div>
-  </div>
+  </header>
 
-  <div class="block">
-    <div class="container"> 
-      <div class="fixed-grid has-6-cols">
-        <div class="grid">  
-          <div class="cell"><div class="control">
-            <input id="number_tobuy_sulfur" class="input" type="tel" value="1" />
-          </div></div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buySulfur()">Buy Sulfur</button></div>
-          <div id="sulfur_counter" class="cell has-text-white">0 sulfur</div>
-          <div class="cell is-row-span-2"><button class="button is-grey is-fullwidth" onclick="silverClick()">Click 10 times to Mine 1 Silver</button><div>1 Silver needs 10 Sulfur and 1 Drill</div></div>
-          <div id="silver_counter" class="cell has-text-white">0 <figure class="image is-32x32"><img src="img/jewelry.png"></figure></div>
-          <div  id="silver_prod_label" class="cell has-text-white">Production: 0 Silver/sec</div>
-          
-          <div class="cell">
-            <div class="control">
-              <input id="number_tobuy_drill" class="input" type="number" value="1" />
+  <main class="section p-3">
+    <section id="resource-display" class="box p-2 is-flex is-justify-content-center is-grey border" style="z-index: 1">
+      <div id="iron-display" class="is-flex is-align-items-center">
+        <figure class="image is-32x32">
+          <img src="img/beam.png">
+        </figure>
+        <div class="ml-1">Iron:</div>
+        <div id="iron_counter" class="ml-1">0</div>
+      </div>
+      <div id="silver-display" class="is-flex is-align-items-center ml-4">
+        <figure class="image is-32x32">
+          <img src="img/jewelry.png">
+        </figure>
+        <div class="ml-1">Silver:</div>
+        <div id="silver_counter" class="ml-1">0</div>
+      </div>
+    </section>
+
+    <hr style="margin-top: 84px; background-color: gold; opacity: 0.6">
+
+    <section id="section-iron" class="block">
+      <div class="container">
+        <div class="fixed-grid has-3-cols has-2-cols-mobile">
+          <div class="grid">
+            <div class="cell">
+              <button class="button iron is-grey is-fullwidth" onclick="ironClick()">Click to Mine 1 Iron</button>
+            </div>
+            <div id="iron_prod_label" class="cell p-2 has-text-centered">Production: 0 Iron/sec</div>
+            <div id="iron_worker_counter" class="cell p-2 has-text-centered">0 workers</div>
+            <div id="iron_worker_label" class="cell p-2 has-text-centered">1 Iron miner costs 10 Iron</div>
+            <div class="cell">
+              <div class="control">
+                <input id="number_workers_tobuy" class="input iron p-2 is is-fullwidth" type="number" value="1" />
+              </div>
+            </div>
+            <div class="cell">
+              <button class="button iron is-grey is-fullwidth" onclick="buyIronMiner()">Buy Iron Miner</button>
+            </div>       
+          </div>        
+        </div>           
+      </div>
+    </section>
+
+    <hr style="background-color: gold; opacity: 0.6">
+  
+    <section id="sulfer-drill" class="block">
+      <div class="container"> 
+        <div class="fixed-grid has-4-cols has-2-cols-mobile">
+          <div class="grid">
+            <div id="sulfur_counter" class="cell p-2 has-text-centered">0 sulfur</div>
+            <div class="cell p-2 has-text-centered">1 sulfer costs 100 iron</div>
+            <div class="cell">
+              <div class="control">
+                <input id="number_tobuy_sulfur" class="input" type="tel" value="1" />
+              </div>
+            </div>
+            <div class="cell">
+              <button class="button is-grey is-fullwidth" style="margin-bottom: 7px;" onclick="buySulfur()">Buy Sulfur</button>
+            </div>
+            <div id="drill_counter" class="cell p-2 has-text-centered">0 drill</div>
+            <div class="cell p-2 has-text-centered">1 drill costs 1000 iron</div>
+            <div class="cell">
+              <div class="control">
+                <input id="number_tobuy_drill" class="input" type="number" value="1" />
+              </div>
+            </div>
+            <div class="cell">
+              <button class="button is-grey is-fullwidth" onclick="buyDrill()">Buy Drill</button>
+            </div>
+          </div>        
+        </div>           
+      </div>
+    </section>
+
+    <hr style="background-color: gold; opacity: 0.6">
+
+    <section id="section-silver" class="block">
+      <div class="container">
+        <div class="fixed-grid has-3-cols has-2-cols-mobile">
+          <div class="grid">  
+            <div id="silver-button-container" class="cell">
+              <div class="has-text-centered">1 Silver needs 10 Sulfur and 1 Drill</div>
+              <button class="button is-grey is-fullwidth my-1" onclick="silverClick()">Click 10 times to Mine 1 Silver</button>
+              <progress id="silver-progress" class="progress is-small" value="1" max="100">1%</progress>
+            </div>
+            <div id="silver_prod_label" class="cell p-2 is-flex is-align-items-center is-justify-content-center">Production: 0 Silver/sec</div>
+            <div id="silver_worker_counter" class="cell p-2 is-flex is-align-items-center is-justify-content-center">0 workers</div>
+            <div id="silver_worker_label" class="cell p-2 has-text-centered">1 Silver miner costs 10 Silver</div>
+            <div class="cell"><div class="control">
+              <input id="number_silver_workers_tobuy" class="input" type="number" value="1" />
+            </div></div>
+            <div class="cell"><button class="button is-grey is-fullwidth" onclick="buySilverMiner()">Buy Silver Miner</button></div>
             </div>
           </div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buyDrill()">Buy Drill</button></div>
-          <div id="drill_counter" class="cell has-text-white">0 drill</div>
-          <div class="cell">cell 3</div>
-          <div class="cell">cell 2</div> 
-          <div class="cell">cell 4</div>
-          <div class="cell">cell 5</div>
-          <div class="cell"><div class="control">
-            <input id="number_silver_workers_tobuy" class="input" type="number" value="1" />
-          </div></div>
-          <div class="cell"><button class="button is-grey is-fullwidth" onclick="buySilverMiner()">Buy Silver Miner</button></div>
-          <div id="silver_worker_counter" class="cell has-text-white">0 workers</div>
-          <div class="cell">cell 9</div>     
-          <div class="cell">cell 10</div>
-          <div class="cell">cell 11</div>
-          <div class="cell">cell 12</div> 
-          <div id="silver_worker_label" class="cell has-text-white">1 Silver miner costs 10 Silver</div>
-        </div>        
-      </div>           
-    </div>
-  </div>
+        </div>
+      </div>
+    </section>
+  </main>
   
+  <script src="game.js"></script>
   </body>
 </html>

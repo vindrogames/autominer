@@ -4,6 +4,9 @@ const SULFUR_PRICE = 100;
 const DRILL_PRICE = 1000;
 const SILVER_MINE_STEPS = 10;
 
+const gameIntro = document.getElementById('game-intro');
+const resourceDisplay = document.getElementById('resource-display');
+
 var iron = 0;
 var silver = 0;
 var gold = 0;
@@ -50,6 +53,25 @@ function AdjustingInterval(workFunc, interval, errorFunc) {
     }
 }
 
+window.addEventListener('scroll', () => {
+
+    /*
+    if (resourceDisplay.offsetTop - window.scrollY <= 7) {
+        resourceDisplay.classList.add('fixed');
+    } else  {
+        resourceDisplay.classList.remove('fixed');
+    }
+    */
+    
+    if (gameIntro.getBoundingClientRect().height + gameIntro.getBoundingClientRect().top < 10 && !resourceDisplay
+.classList.contains('fixed')) {
+        console.log('scroll hit');
+        resourceDisplay.classList.add('fixed');
+    } else if (gameIntro.getBoundingClientRect().height + gameIntro.getBoundingClientRect().top >= 10 && resourceDisplay.classList.contains('fixed')) {
+        resourceDisplay.classList.remove('fixed')
+    }
+})
+
 function ironClick()
 {
     iron = iron + 1;
@@ -59,14 +81,19 @@ function ironClick()
 function silverClick()
 {
     if ((drill_units > 0) && (sulfur > 0))
-    {        
+    {
+        document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + 10;
         sulfur = sulfur - 1;
         silver_pick_steps = silver_pick_steps + 1;
         if (silver_pick_steps == SILVER_MINE_STEPS)
         {
+            document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + 10;
             silver = silver + 1;
             drill_units = drill_units - 1;
             silver_pick_steps = 0;
+            setTimeout(() => {
+                document.getElementById('silver-progress').value = 0;
+            }, 420);
         }
     }
     updateMetals();
@@ -109,9 +136,9 @@ function buySilverMiner()
 function updateMetals()
 {
     const iron_counter = document.getElementById('iron_counter');
-    iron_counter.innerHTML  = iron + '<figure class="image is-32x32"><img src="img/beam.png"></figure>';
+    iron_counter.innerHTML  = iron;
     const silver_counter = document.getElementById('silver_counter');
-    silver_counter.innerHTML  = silver + '<figure class="image is-32x32"><img src="img/jewelry.png"></figure>';
+    silver_counter.innerHTML  = silver;
     const sulfur_counter = document.getElementById('sulfur_counter');
     sulfur_counter.innerHTML  = sulfur + ' sulfur';
     const drill_counter = document.getElementById('drill_counter');
