@@ -142,15 +142,35 @@ function updateMetals()
     const sulfur_counter = document.getElementById('sulfur_counter');
     sulfur_counter.innerHTML  = sulfur + ' sulfur';
     const drill_counter = document.getElementById('drill_counter');
-    drill_counter.innerHTML  = drill_units + ' drill';
+    if (drill_units == 1)
+    {
+        drill_counter.innerHTML  = drill_units + ' drill';
+    }
+    else
+    {
+        drill_counter.innerHTML  = drill_units + ' drills';
+    }
 }
 
 function updateWorkers()
 {
     const iron_worker_counter = document.getElementById('iron_worker_counter');
-    iron_worker_counter.textContent = 'Iron miners: ' + iron_workers;
+    if (iron_workers == 1)
+    {
+        iron_worker_counter.textContent = iron_workers + 'iron miner';
+    } else
+    {
+        iron_worker_counter.textContent = iron_workers + 'iron miners';
+    }
     const silver_worker_counter = document.getElementById('silver_worker_counter');
-    silver_worker_counter.textContent = 'Silver miners: ' + silver_workers;
+    if (silver_workers == 1)
+    {
+        silver_worker_counter.textContent = silver_workers + 'silver miner'; 
+    } 
+    else
+    {
+        silver_worker_counter.textContent = silver_workers + 'silver miners';
+    }
 }
 
 function buySulfur()
