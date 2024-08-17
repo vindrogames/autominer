@@ -81,15 +81,16 @@ function ironClick()
 
 function silverClick()
 {
+    var progress = 100 / SILVER_MINE_STEPS;
     if ((drill_units > 0) && (sulfur > 0))
     {
-        document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + 10;
+        document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + progress;
         var sulfur_to_pay = SILVER_MINE_PRICE / SILVER_MINE_STEPS
         sulfur = sulfur - sulfur_to_pay;
         silver_pick_steps = silver_pick_steps + 1;
         if (silver_pick_steps == SILVER_MINE_STEPS)
         {
-            document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + 10;
+            document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + progress;
             silver = silver + 1;
             drill_units = drill_units - 1;
             silver_pick_steps = 0;
@@ -205,6 +206,11 @@ function mineSilverWorker()
             drill_units = drill_units - 1;
             updateMetals();
         }
+        else
+        {
+            break;
+        }
+
     }
 }
 
