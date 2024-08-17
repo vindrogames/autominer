@@ -2,13 +2,14 @@ const IRON_WORKER_PRICE = 10;
 const SILVER_WORKER_PRICE = 10;
 const SULFUR_PRICE = 100;
 const DRILL_PRICE = 1000;
-const SILVER_MINE_STEPS = 10;
+const SILVER_MINE_PRICE = 10;
+const SILVER_MINE_STEPS = 5;
 
 const gameIntro = document.getElementById('game-intro');
 const resourceDisplay = document.getElementById('resource-display');
 
-var iron = 0;
-var silver = 0;
+var iron = 100000;
+var silver = 10000;
 var gold = 0;
 
 var iron_workers = 0;
@@ -83,7 +84,8 @@ function silverClick()
     if ((drill_units > 0) && (sulfur > 0))
     {
         document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + 10;
-        sulfur = sulfur - 1;
+        var sulfur_to_pay = SILVER_MINE_PRICE / SILVER_MINE_STEPS
+        sulfur = sulfur - sulfur_to_pay;
         silver_pick_steps = silver_pick_steps + 1;
         if (silver_pick_steps == SILVER_MINE_STEPS)
         {
@@ -196,10 +198,10 @@ function mineSilverWorker()
 {
     for (let i=0; i < silver_workers; i++)
     {
-        if ((sulfur >= SILVER_MINE_STEPS) && (drill_units >= 1))
+        if ((sulfur >= SILVER_MINE_PRICE) && (drill_units >= 1))
         {
             silver = silver + 1;
-            sulfur = sulfur - SILVER_MINE_STEPS;
+            sulfur = sulfur - SILVER_MINE_PRICE;
             drill_units = drill_units - 1;
             updateMetals();
         }
@@ -235,12 +237,28 @@ function updateProductionOutput()
     silver_prod_label.innerHTML  = 'Production: '+ silver_prod_real +' Silver/sec';
 }
 
+function autoBuy()
+{
+    const sulfur_autobuy_check = document.getElementById('sulfur_autobuy_check');
+    if (sulfur_autobuy_check.checked)
+    {
+        buySulfur();
+    }
+    const drill_autobuy_check = document.getElementById('drill_autobuy_check');
+    if (drill_autobuy_check.checked)
+    {
+        buyDrill()
+    }
+    
+}
+
 // For testing purposes, we'll just increment
 // this and send it out to the console.
 var justSomeNumber = 0;
 
 // Define the work to be done
 var doWork = function() {
+    autoBuy()
     mineIronWorker();
     mineSilverWorker();
     updateMetals();
