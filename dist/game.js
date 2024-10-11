@@ -1,15 +1,19 @@
-const IRON_WORKER_PRICE = 10;
-const SILVER_WORKER_PRICE = 10;
+
 const SULFUR_PRICE = 100;
 const DRILL_PRICE = 1000;
 const SILVER_MINE_PRICE = 10;
 const SILVER_MINE_STEPS = 5;
 
+const IRON_PRICE_MULTIPLIER = 1.5;
+
 const gameIntro = document.getElementById('game-intro');
 const resourceDisplay = document.getElementById('resource-display');
 
-var iron = 100000;
-var silver = 10000;
+var IRON_WORKER_PRICE = 10;
+var SILVER_WORKER_PRICE = 10;
+
+var iron = 100;
+var silver = 0;
 var gold = 0;
 
 var iron_workers = 0;
@@ -110,8 +114,9 @@ function buyIronMiner()
     {
         iron = iron - price_to_pay;
         iron_workers = iron_workers + parseInt(number_workers_tobuy);
+        increase_iron_miner_cost();
         updateMetals();
-        updateWorkers();
+        updateWorkers();        
     }
     else
     {
@@ -161,6 +166,8 @@ function updateWorkers()
     iron_worker_counter.textContent = 'Iron miners: ' + iron_workers;
     const silver_worker_counter = document.getElementById('silver_worker_counter');
     silver_worker_counter.textContent = 'Silver miners: ' + silver_workers; 
+    const iron_worker_label = document.getElementById('iron_worker_label');
+    iron_worker_label.textContent = '1 Iron miner costs '+IRON_WORKER_PRICE+' Iron';
 }
 
 function buySulfur()
@@ -179,6 +186,31 @@ function buySulfur()
     }
 }
 
+function autoBuySulfur()
+{
+    const number_tobuy_sulfur = document.getElementById('number_tobuy_sulfur').value;
+    var number_tobuy_sulfur_count = parseInt(number_tobuy_sulfur);
+    var i = 0;
+    while (( i < number_tobuy_sulfur_count))
+    {
+        if (iron > SULFUR_PRICE)
+        {
+            sulfur = sulfur + 1;
+            iron = iron - SULFUR_PRICE;
+            updateMetals();            
+        }
+        else
+        {           
+            const sulfur_autobuy_check = document.getElementById('sulfur_autobuy_check');
+            sulfur_autobuy_check.checked = false;
+            break;
+        }
+        i++;
+    }
+}
+
+
+
 function buyDrill()
 {
     const number_tobuy_drill = document.getElementById('number_tobuy_drill').value;
@@ -192,6 +224,29 @@ function buyDrill()
     else
     {
         console.log("Not enough iron")
+    }
+}
+
+function autoBuyDrill()
+{
+    const number_tobuy_drill = document.getElementById('number_tobuy_drill').value;
+    var number_tobuy_drill_count = parseInt(number_tobuy_drill);
+    var i = 0;
+    while (( i < number_tobuy_drill_count))
+    {
+        if (iron > DRILL_PRICE)
+        {
+            drill_units = drill_units + 1;
+            iron = iron - DRILL_PRICE;
+            updateMetals();            
+        }
+        else
+        {           
+            const drill_autobuy_check = document.getElementById('drill_autobuy_check');
+            drill_autobuy_check.checked = false;
+            break;
+        }
+        i++;
     }
 }
 
@@ -248,7 +303,7 @@ function autoBuy()
     const sulfur_autobuy_check = document.getElementById('sulfur_autobuy_check');
     if (sulfur_autobuy_check.checked)
     {
-        buySulfur();
+        autoBuySulfur();
     }
     const drill_autobuy_check = document.getElementById('drill_autobuy_check');
     if (drill_autobuy_check.checked)
@@ -258,17 +313,38 @@ function autoBuy()
     
 }
 
+function increase_iron_miner_cost()
+{
+  
+
+    const priceMultiplier = Math.floor(iron_workers / 10);
+    
+    // Update the price by increasing it by 10% for every 10 miners
+    IRON_WORKER_PRICE = Math.round(10 * Math.pow(IRON_PRICE_MULTIPLIER, priceMultiplier));  // 10 is the initial base price
+}
+
+function price_increase(workers)
+{
+    temp_price = iron_worker_price;
+    // Every 10 miners, increase the price by 10%
+    if (workers % 10 === 0) {
+        temp_price *= 1.1;  // Increase by 10%
+    }
+
+    return temp_price;
+}
+
 // For testing purposes, we'll just increment
 // this and send it out to the console.
 var justSomeNumber = 0;
 
 // Define the work to be done
 var doWork = function() {
+    updateProductionOutput();
     autoBuy()
     mineIronWorker();
     mineSilverWorker();
     updateMetals();
-    updateProductionOutput();
 };
 
 // Define what to do if something goes wrong
