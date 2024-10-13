@@ -85,32 +85,41 @@
 
     <section id="section-iron" class="block">
       <div class="container">
-        <div class="fixed-grid has-3-cols has-2-cols-mobile">
+        <div class="fixed-grid">
           <div class="grid">
             <div class="cell">
-              <button class="button iron is-grey is-fullwidth" onclick="ironClick()">Click to Mine 1 Iron 
+              <button class="button iron is-grey" onclick="ironClick()">Click to Mine 1 Iron
                 <figure class="image is-16x16 ml-2">
                   <img src="img/beam.png">
                 </figure>
               </button>
             </div>
-            <div id="iron_prod_label" class="cell p-2 has-text-centered">Production: 0 Iron/sec</div>
-            <div id="iron_worker_label" class="cell p-2 has-text-centered">1 Iron miner costs 10 Iron</div>
-            <div id="iron_worker_counter" class="cell p-2 has-text-centered is-flex is-align-items-center is-justify-content-center">Iron miners: 0
+            <div id="iron_prod_label" class="cell has-text-centered">Production: 0 Iron/sec</div>                              
+          </div>        
+        </div>  
+        <div class="fixed-grid">
+          <div class="grid">            
+            <div id="iron_worker_label" class="cell has-text-centered">1 Iron miner costs 10 Iron</div>
+            <div id="iron_worker_counter" class="cell has-text-centered is-flex is-align-items-center is-justify-content-center">Iron miners: 0
               <figure class="image is-16x16 ml-2">
                 <img src="img/pick-axe.webp">
               </figure>
-            </div>
+            </div>                   
+          </div>        
+        </div>
+        <div class="fixed-grid has-3-cols">
+          <div class="grid">       
             <div class="cell">
               <div class="control">
-                <input id="number_workers_tobuy" class="input iron p-2 is is-fullwidth" type="number" value="1" />
+                <input id="number_workers_tobuy" class="input iron p-2 is" type="number" value="1" />
               </div>
             </div>
+            <div id="worker_price_label" class="cell has-text-centered">Cost 0</div>
             <div class="cell">
               <button class="button iron is-grey is-fullwidth" onclick="buyIronMiner()">Buy Iron Miner</button>
             </div>       
           </div>        
-        </div>           
+        </div>         
       </div>
     </section>
 
