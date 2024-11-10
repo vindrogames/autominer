@@ -1,10 +1,12 @@
 
-const SULFUR_PRICE = 100;
-const DRILL_PRICE = 1000;
+const SULFUR_PRICE = 50;
+const DRILL_PRICE = 500;
 const SILVER_MINE_PRICE = 10;
 const SILVER_MINE_STEPS = 5;
 
 const IRON_PRICE_MULTIPLIER = 1.1;
+
+const DEBUG=false;
 
 const gameIntro = document.getElementById('game-intro');
 const resourceDisplay = document.getElementById('resource-display');
@@ -12,16 +14,22 @@ const resourceDisplay = document.getElementById('resource-display');
 var IRON_WORKER_PRICE = 10;
 var SILVER_WORKER_PRICE = 10;
 
-var iron = 10000;
-var silver = 1000;
+var iron = 0;
+var silver = 0;
 var gold = 0;
 
-var iron_workers = 20;
+var iron_workers = 0;
 var silver_workers = 0;
 var sulfur = 0;
 var drill_units = 0;
 var silver_pick_steps = 0;
 
+if (DEBUG)
+{
+    iron = 10000;
+    silver = 1000;
+    iron_workers = 20;
+}
 
 /**
  * Self-adjusting interval to account for drifting
