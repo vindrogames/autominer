@@ -4,7 +4,7 @@ const DRILL_PRICE = 1000;
 const SILVER_MINE_PRICE = 10;
 const SILVER_MINE_STEPS = 5;
 
-const IRON_PRICE_MULTIPLIER = 1.5;
+const IRON_PRICE_MULTIPLIER = 1.1;
 
 const gameIntro = document.getElementById('game-intro');
 const resourceDisplay = document.getElementById('resource-display');
@@ -12,11 +12,11 @@ const resourceDisplay = document.getElementById('resource-display');
 var IRON_WORKER_PRICE = 10;
 var SILVER_WORKER_PRICE = 10;
 
-var iron = 100;
-var silver = 0;
+var iron = 10000;
+var silver = 1000;
 var gold = 0;
 
-var iron_workers = 0;
+var iron_workers = 20;
 var silver_workers = 0;
 var sulfur = 0;
 var drill_units = 0;
@@ -86,7 +86,7 @@ function ironClick()
 function silverClick()
 {
     var progress = 100 / SILVER_MINE_STEPS;
-    if ((drill_units > 0) && (sulfur > 0))
+    if ((drill_units > 0) && (sulfur > 1))
     {
         document.getElementById('silver-progress').value = document.getElementById('silver-progress').value + progress;
         var sulfur_to_pay = SILVER_MINE_PRICE / SILVER_MINE_STEPS
@@ -276,12 +276,32 @@ function mineIronWorker()
 
 
 
-function updateLabels()
-{
+function updateLabels() {
     const iron_worker_label = document.getElementById('iron_worker_label');
-    iron_worker_label.innerHTML  = '1 Iron miner costs ' + IRON_WORKER_PRICE + ' Iron';
+    iron_worker_label.innerHTML = '1 Iron miner costs ' + IRON_WORKER_PRICE + ' Iron';
+    
     const silver_worker_label = document.getElementById('silver_worker_label');
-    silver_worker_label.innerHTML  = '1 Silver worker costs ' + SILVER_WORKER_PRICE +' Silver';
+    silver_worker_label.innerHTML = '1 Silver worker costs ' + SILVER_WORKER_PRICE + ' Silver';
+
+    // Update the would be price to buy Iron Workers by multiple
+    const worker_price_label = document.getElementById('worker_price_label');
+    const number_workers_tobuy = document.getElementById('number_workers_tobuy').value;
+    var temp_price_to_pay = (IRON_WORKER_PRICE * parseInt(number_workers_tobuy));    
+    worker_price_label.innerHTML = 'Cost: ' + temp_price_to_pay + ' Iron';
+
+    // Update the would be price to buy Sulfur by multiple
+    const sulfur_price_label = document.getElementById('sulfur_price_label');
+    const number_tobuy_sulfur = document.getElementById('number_tobuy_sulfur').value;
+    var temp_price_to_pay = (SULFUR_PRICE*parseInt(number_tobuy_sulfur));
+    sulfur_price_label.innerHTML = 'Cost: ' + temp_price_to_pay + ' Iron';
+
+    // Update the would be price to buy Drill by multiple
+    const drill_price_label = document.getElementById('drill_price_label');    
+    const number_tobuy_drill = document.getElementById('number_tobuy_drill').value;
+    var temp_price_to_pay = (DRILL_PRICE*parseInt(number_tobuy_drill));
+    drill_price_label.innerHTML = 'Cost: ' + temp_price_to_pay + ' Iron';
+
+
 }
 
 function updateProductionOutput()
@@ -323,16 +343,6 @@ function increase_iron_miner_cost()
     IRON_WORKER_PRICE = Math.round(10 * Math.pow(IRON_PRICE_MULTIPLIER, priceMultiplier));  // 10 is the initial base price
 }
 
-function price_increase(workers)
-{
-    temp_price = iron_worker_price;
-    // Every 10 miners, increase the price by 10%
-    if (workers % 10 === 0) {
-        temp_price *= 1.1;  // Increase by 10%
-    }
-
-    return temp_price;
-}
 
 // For testing purposes, we'll just increment
 // this and send it out to the console.
@@ -345,6 +355,8 @@ var doWork = function() {
     mineIronWorker();
     mineSilverWorker();
     updateMetals();
+    updateLabels();
+    updateWorkers();
 };
 
 // Define what to do if something goes wrong
@@ -359,5 +371,20 @@ ticker.start();
 window.onload = function() {
     updateLabels();
 };
+
+document.getElementById('number_workers_tobuy').addEventListener('input', function() {
+    // Update labels whenever the input value changes
+    updateLabels();
+});
+
+document.getElementById('number_tobuy_sulfur').addEventListener('input', function() {
+    // Update labels whenever the input value changes
+    updateLabels();
+});
+
+document.getElementById('number_tobuy_drill').addEventListener('input', function() {
+    // Update labels whenever the input value changes
+    updateLabels();
+});
 
 
